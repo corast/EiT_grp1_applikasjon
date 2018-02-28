@@ -19,7 +19,6 @@ public class Ellipse : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        lineRenderer.SetColors()
         lineRenderer = GetComponent<LineRenderer>();
         CalculateEllipseSun();
     }

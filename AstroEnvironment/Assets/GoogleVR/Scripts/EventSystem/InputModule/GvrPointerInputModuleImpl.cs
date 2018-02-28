@@ -197,17 +197,18 @@ public class GvrPointerInputModuleImpl {
     CurrentEventData.delta = currentPose - lastPose;
     lastPose = currentPose;
 
-    // Check to make sure the Raycaster being used is a GvrRaycaster.
-    if (raycastResult.module != null
-        && !(raycastResult.module is GvrPointerGraphicRaycaster)
-        && !(raycastResult.module is GvrPointerPhysicsRaycaster)) {
-      Debug.LogWarning("Using Raycaster (Raycaster: " + raycastResult.module.GetType() +
-        ", Object: " + raycastResult.module.name + "). It is recommended to use " +
-        "GvrPointerPhysicsRaycaster or GvrPointerGrahpicRaycaster with GvrPointerInputModule.");
+        // Include if not compiling, has been removed as it does not affect unity performance. 
+        // Check to make sure the Raycaster being used is a GvrRaycaster.
+        // if (raycastResult.module != null
+        //    && !(raycastResult.module is GvrPointerGraphicRaycaster)
+        //    && !(raycastResult.module is GvrPointerPhysicsRaycaster)) {
+        //  Debug.LogWarning("Using Raycaster (Raycaster: " + raycastResult.module.GetType() +
+        //  ", Object: " + raycastResult.module.name + "). It is recommended to use " +
+        //  "GvrPointerPhysicsRaycaster or GvrPointerGrahpicRaycaster with GvrPointerInputModule.");
+        //  }
     }
-  }
 
-  private void UpdateCurrentObject(GameObject previousObject) {
+        private void UpdateCurrentObject(GameObject previousObject) {
     if (CurrentEventData == null) {
       return;
     }
