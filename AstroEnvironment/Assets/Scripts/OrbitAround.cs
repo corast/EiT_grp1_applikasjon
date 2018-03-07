@@ -8,6 +8,8 @@ public class OrbitAround : MonoBehaviour
     public GameObject Midpoint;
     public float speed = 10f;
 
+    static bool orbit = true;
+
     // Use this for initialization
     void Start()
     {
@@ -20,7 +22,18 @@ public class OrbitAround : MonoBehaviour
     }
     void Orbit()
     {
-        transform.RotateAround(Midpoint.transform.position, Vector3.up, speed * Time.deltaTime);
+        if(orbit){
+            transform.RotateAround(Midpoint.transform.position, Vector3.up, speed * Time.deltaTime);
+        }
+        
+    }
+
+    public static void toggleOrbit(){
+        if(orbit){
+            orbit = false;
+        }else{
+            orbit = true;
+        }
     }
 }
 
