@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 2108210716, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
   m_Name: ButtonColorGradient
   m_EditorClassIdentifier: 
-  topLeft: {r: 0.29385808, g: 0.5808823, b: 0.22210206, a: 1}
-  topRight: {r: 0.71323526, g: 0.17306443, b: 0.17306443, a: 1}
-  bottomLeft: {r: 0.46323532, g: 0.15668255, b: 0.15668255, a: 1}
+  topLeft: {r: 0.19999993, g: 1, b: 0, a: 1}
+  topRight: {r: 0.42545635, g: 1, b: 0.24264705, a: 1}
+  bottomLeft: {r: 0.044117644, g: 0.75, b: 0.19503038, a: 1}
   bottomRight: {r: 0.06568987, g: 0.5517345, b: 0.5955882, a: 1}
