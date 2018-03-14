@@ -20,7 +20,7 @@ public class OwnRotation : MonoBehaviour
     }
     void Rotate()
     {
-        transform.RotateAround(ObjectCoordinates.transform.position, Vector3.back, speed * Time.deltaTime);
+        transform.RotateAround(ObjectCoordinates.transform.position, Vector3.up, speed * Time.deltaTime);
     }
 }
 
