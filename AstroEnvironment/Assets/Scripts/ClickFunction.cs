@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-
-
 public class ClickFunction : MonoBehaviour {
 
     public GameObject sun;
