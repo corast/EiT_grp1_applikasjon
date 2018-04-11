@@ -8,6 +8,7 @@ public class RayParticle : MonoBehaviour, IPooledObject {
 	public float sideForce = .1f;
     public void onObjectSpawn()
     {
+		Debug.Log("Test");
 		float xForce = Random.Range(-sideForce, sideForce);
 		float yForce = Random.Range(upForce / 2f, upForce);
 		float zForce = Random.Range(-sideForce, sideForce);
@@ -16,14 +17,4 @@ public class RayParticle : MonoBehaviour, IPooledObject {
 
 		GetComponent<Rigidbody>().velocity = force;
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -1196,7 +1196,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4a941ed6f14aa451d94ed905031bbe00, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 4a941ed6f14aa451d94ed905031bbe00, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1464,7 +1464,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 728754585
+  randomSeed: 1470952667
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5357,6 +5357,7 @@ GameObject:
   - component: {fileID: 1266415908}
   - component: {fileID: 1266415907}
   - component: {fileID: 1266415909}
+  - component: {fileID: 1266415910}
   m_Layer: 0
   m_Name: ObjectPooler
   m_TagString: Untagged
@@ -5370,7 +5371,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1266415904}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2059c11b20890db49804a940dc77a4df, type: 3}
   m_Name: 
@@ -5386,7 +5387,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1266415904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 406.9, y: 24.3, z: 222}
+  m_LocalPosition: {x: 395.9, y: 24.3, z: 222}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5439,9 +5440,21 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1266415904}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a46f05dae41e66a4f9d0ae6fe83c3626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: 2
+--- !u!114 &1266415910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1266415904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b2ffff5d5416d48a55ea88e9705e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1305911879
@@ -8997,7 +9010,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1364943795}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -9504,7 +9517,7 @@ Transform:
   - {fileID: 136482437}
   - {fileID: 1317102377}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1686675269
 GameObject:
