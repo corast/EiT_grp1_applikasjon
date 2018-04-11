@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlanetCameraOrientator : MonoBehaviour {
 
-	//To do: Make reset function for reuse
+	//To do:
+	//Fix initial camera rotation
+	//Make reset function for reuse
 
 	public GameObject sun;
 	public GameObject player;
@@ -56,7 +58,7 @@ public class PlanetCameraOrientator : MonoBehaviour {
 		centreSun = sun.transform.position;
 
 		//Position if earth was in "ideal position" for hardcoded values
-		var idealPosition = centreSun + new Vector3 ((centreSun - transform.position).sqrMagnitude, 0 ,0);
+		var idealPosition = centreSun + new Vector3 ((centreSun - self.transform.position).magnitude, 0 ,0); 
 
 		//Points in which to the camera moves to and have its focus on
 		pointTo = new GameObject ("pointTo");
@@ -92,9 +94,13 @@ public class PlanetCameraOrientator : MonoBehaviour {
 
 			rotate = true;
 			zoom = true;
-			targetRotation = Quaternion.LookRotation (pointCameraFocus.transform.position - player.transform.position);
+			targetRotation = Quaternion.LookRotation
+				((pointCameraFocus.transform.position - player.transform.position).normalized);
 			originalPosition = player.transform.position;
 			originalRotation = player.transform.rotation;
+			print (targetRotation);
+			print (targetRotation.eulerAngles);
+				
 		}
 		if (rotate || zoom) {
 			totalTime += Time.deltaTime;
@@ -107,6 +113,7 @@ public class PlanetCameraOrientator : MonoBehaviour {
 			if (rt >= 1f) {
 				rotate = false;
 			}
+
 		}
 		if (zoom) {
 			zt = (totalTime-rotTime) / zoomTime;

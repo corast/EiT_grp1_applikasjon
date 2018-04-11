@@ -22,7 +22,7 @@ public class main : MonoBehaviour {
 		
 	// Use this for initialization
 	void Awake () {
-		objectPool = EZObjectPool.CreateObjectPool (SolarRay, "SolarRays", 20, false, true, false);
+		objectPool = EZObjectPool.CreateObjectPool (SolarRay, "SolarRays", 10, false, true, false);
 	}
 
 	void Start () {
@@ -62,7 +62,8 @@ public class main : MonoBehaviour {
 				+ new Vector3(0, Random.value * earth.transform.lossyScale.y * 0.5f, 0);
 			Vector3 initPoint = Vector3.Lerp (sun.transform.position, targetPoint, 0.96f);
 			successPooling = objectPool.TryGetNextObject (initPoint, rot, out ray);
-			ray.GetComponent<RayBehaviour> ().initDistToEarth = (targetPoint - initPoint).sqrMagnitude - earth.transform.lossyScale.x;
+			ray.GetComponent<RayBehaviour> ().initDistToEarth = (targetPoint - initPoint).magnitude
+				- earth.transform.lossyScale.x;
 			ray.GetComponent<RayBehaviour> ().currentDir = (targetPoint - initPoint).normalized;
 
 			ray.SetActive (true);
