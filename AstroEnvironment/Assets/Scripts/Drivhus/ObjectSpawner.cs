@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectSpawner : MonoBehaviour {
-	
-	public float Timer = 0f;
+
 	ObjectPooler objectPooler;
 	/// <summary>
 	/// Start is called on the frame when a script is enabled just before
@@ -19,12 +18,6 @@ public class ObjectSpawner : MonoBehaviour {
 	/// </summary>
 	void FixedUpdate()
 	{
-		Timer -= Time.deltaTime;
-		//TODO: delay between each spawn.
-		if(Timer <= 0f){
-			objectPooler.SpawnFromPool("Cube", transform.position, Quaternion.identity);
-			Timer = 2f;
-		}
-		
+		objectPooler.SpawnFromPool("Cube", transform.position, Quaternion.identity);
 	}
 }
