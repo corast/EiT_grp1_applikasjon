@@ -22,4 +22,12 @@ public class StartMenu : MonoBehaviour {
 		Debug.Log("Exiting Application");
 		Application.Quit();
 	}
+
+	public void backScene(){
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+	}
+
+	public void changeModuleGlobalwarming(){
+
+	}
 }
