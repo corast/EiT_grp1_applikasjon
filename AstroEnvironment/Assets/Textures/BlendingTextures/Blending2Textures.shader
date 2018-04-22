@@ -1,10 +1,11 @@
 ﻿Shader "Astro/Blending2Textures"
 {
+
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
 		_SecondTex ("Texture", 2D) = "white" {}
-		_Lerpvalue("Tranistion float", Range(0,1)) = 0.5
+		_LerpValue("Transition float", Range(0,1)) = 0.0
 	}
 	SubShader
 	{
@@ -38,7 +39,7 @@
 			float4 _MainTex_ST;
 			sampler2D _SecondTex;
 			float4 _SecondTex_ST;
-			float _Lerpvalue;
+			float _LerpValue;
 			
 			v2f vert (appdata v)
 			{
@@ -52,7 +53,7 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 
-				fixed4 col = lerp(tex2D(_MainTex, i.uv),tex2D(_SecondTex, i.uv), _Lerpvalue);
+				fixed4 col = lerp(tex2D(_MainTex, i.uv),tex2D(_SecondTex, i.uv), _LerpValue);
 
 			
 				return col;
