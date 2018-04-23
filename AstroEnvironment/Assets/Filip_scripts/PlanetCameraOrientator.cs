@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlanetCameraOrientator : MonoBehaviour {
 
 	//To do:
-	//Fix initial camera rotation
 	//Make reset function for reuse
 
 	public GameObject sun;
 	public GameObject player;
+	public GameObject camera;
 	public GameObject self;
+	public GameObject slider;
 
 	public bool triggered = false;
 	public float zoomTime = 12f;
@@ -19,6 +21,8 @@ public class PlanetCameraOrientator : MonoBehaviour {
 
 	private bool rotate = false;
 	private bool zoom = false;
+	private bool needReset = false;
+	private bool freeCamera = true;
 
 	private GameObject pointTo;
 	private GameObject pointCameraFocus;
@@ -29,10 +33,11 @@ public class PlanetCameraOrientator : MonoBehaviour {
 	private float totalTime = 0;
 	private float rt = 0;
 	private float zt = 0;
-	private float lerpValueRotation = 0;
-	private float lerpValueMovement = 0;
+	private float at = 0;
 	private Quaternion targetRotation;
 	private Quaternion originalRotation;
+	private Quaternion secondRot;
+	private Quaternion secondWant;
 	private Vector3 originalPosition;
 	private Vector3 centreSun;
 	private Vector3 ab;
@@ -62,7 +67,7 @@ public class PlanetCameraOrientator : MonoBehaviour {
 
 		//Points in which to the camera moves to and have its focus on
 		pointTo = new GameObject ("pointTo");
-		pointTo.transform.position = idealPosition + new Vector3 (-sizePlanet * 0.625f, sizePlanet*0.25f, sizePlanet * 0.25f);
+		pointTo.transform.position = idealPosition + new Vector3 (-sizePlanet * 0.6f, sizePlanet*0.25f, sizePlanet * 0.175f);
 
 		pointCameraFocus = new GameObject ("pointCameraFocus");
 		pointCameraFocus.transform.position = idealPosition + new Vector3 (-sizePlanet*0.4f, sizePlanet*0.25f, sizePlanet * 0.0625f);
@@ -84,8 +89,9 @@ public class PlanetCameraOrientator : MonoBehaviour {
 		speedOrbit = self.GetComponent <OrbitAround> ().speed;
 
 		//Where to
-		if (triggered) {
+		if (triggered && !needReset) {
 			triggered = false;
+			needReset = true;
 
 			MakeCameraPoints ();
 			camToFocus = pointCameraFocus.transform.position - player.transform.position;
@@ -97,9 +103,7 @@ public class PlanetCameraOrientator : MonoBehaviour {
 			targetRotation = Quaternion.LookRotation
 				((pointCameraFocus.transform.position - player.transform.position).normalized);
 			originalPosition = player.transform.position;
-			originalRotation = player.transform.rotation;
-			print (targetRotation);
-			print (targetRotation.eulerAngles);
+			originalRotation = camera.transform.rotation;
 				
 		}
 		if (rotate || zoom) {
@@ -108,8 +112,8 @@ public class PlanetCameraOrientator : MonoBehaviour {
 		//Rotate and zoom
 		if (rotate){
 			rt = totalTime / rotTime;
-			player.transform.rotation = Quaternion.Slerp (originalRotation, targetRotation, lerpValueRotation);
-			lerpValueRotation = 0.5f * (1 + Mathf.Sin ((rt + 0.5f * Mathf.PI) * Mathf.PI));
+			camera.transform.rotation = Quaternion.Slerp (originalRotation, targetRotation, rt);
+			//lerpValueRotation = 0.5f * (1 + Mathf.Sin ((rt + 0.5f * Mathf.PI) * Mathf.PI));
 			if (rt >= 1f) {
 				rotate = false;
 			}
@@ -118,10 +122,9 @@ public class PlanetCameraOrientator : MonoBehaviour {
 		if (zoom) {
 			zt = (totalTime-rotTime) / zoomTime;
 			if (zt >= 0f) {
-				ab = Vector3.Lerp (originalPosition, centreSun, lerpValueMovement);
-				bc = Vector3.Lerp (centreSun, pointTo.transform.position, lerpValueMovement);
-				player.transform.position = Vector3.Lerp (ab, bc, lerpValueMovement);
-				lerpValueMovement = 0.5f * (1 + Mathf.Sin ((zt + 0.5f * Mathf.PI) * Mathf.PI));
+				ab = Vector3.Lerp (originalPosition, centreSun, zt);
+				bc = Vector3.Lerp (centreSun, pointTo.transform.position, zt);
+				player.transform.position = Vector3.Lerp (ab, bc, zt);
 				if (zt >= 1f) {
 					zoom = false;
 					self.GetComponent <main> ().zoomFinished = true; 
@@ -132,11 +135,26 @@ public class PlanetCameraOrientator : MonoBehaviour {
 		//Finished, keep in position and look at
 		if (rt >= 1f) {
 			pointCameraFocus.transform.RotateAround (centreSun, Vector3.up, speedOrbit * Time.deltaTime);
-			player.transform.LookAt (pointCameraFocus.transform.position);
-			if (zt >= 1f) {
-				pointTo.transform.RotateAround (centreSun,  Vector3.up, speedOrbit * Time.deltaTime);
-				player.transform.position = pointTo.transform.position;
+			if (speedOrbit > 0) {
+				camera.transform.LookAt (self.transform.position);
+				secondRot = Quaternion.LookRotation ((self.transform.position -
+				player.transform.position).normalized);
+				secondWant = Quaternion.LookRotation ((pointCameraFocus.transform.position -
+				player.transform.position).normalized);
+			} else if (freeCamera) {
+				if (at >= 1f) {
+					//player.transform.rotation = secondWant;
+					freeCamera = false;
+				} else {
+					player.transform.rotation = Quaternion.Slerp (new Quaternion(0,0,0,0), secondWant, at);
+					at += 0.01f;
+					print (at);
+				}
 			}
+		if (zt >= 1f && speedOrbit > 0) {
+			pointTo.transform.RotateAround (centreSun,  Vector3.up, speedOrbit * Time.deltaTime);
+			player.transform.position = pointTo.transform.position;
 		}
 	}
+}
 }

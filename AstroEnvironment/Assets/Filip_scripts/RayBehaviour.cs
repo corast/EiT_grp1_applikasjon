@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RayBehaviour : MonoBehaviour {
 
@@ -18,18 +19,17 @@ public class RayBehaviour : MonoBehaviour {
 	public GameObject sun;
 	public GameObject atmosphere;
 
+	public Slider excitationSlider;
+
 	public float speed = 0.01f;
 	public float oscillationSpeed = 0.1f;
 	public float amplitude = 0.5f;
 	public float initDistToEarth;
-	public float excitationProbPerFrame = 0.001f;
 
 	public Vector3 currentDir;
 
 	public Material whiteTrail;
 	public Material redTrail;
-
-	private Color RayColor = new Color (255, 255, 255, 1);
 
 	private bool isHeatray = false;
 	private bool insideAtmosphere = false;
@@ -39,10 +39,12 @@ public class RayBehaviour : MonoBehaviour {
 	private Vector3 oscDir = Vector3.up;
 	private Vector3 camToFocus;
 	private Vector3 posNoOscillation;
+	private Vector3 sunToEarth;
 
 	private float oscillationT = 0f;
 	private float distToEarth;
 	private float radiusEarth;
+	private float excitationProbPerFrame;
 
 	//Custom methods
 
@@ -78,7 +80,9 @@ public class RayBehaviour : MonoBehaviour {
 
 	//Gives a new random path for the particle. To be activated randomly in atmosphere
 	void ExcitationRandomPath () {
-		currentDir = new Vector3 (Random.value, Random.value, Random.value);
+		//currentDir = new Vector3 (Random.value, Random.value, Random.value);
+		sunToEarth = (sun.transform.position - earth.transform.position).normalized;
+		currentDir = (Random.Range(-1,1)*Vector3.up + Random.Range(-1,1)*sunToEarth).normalized;
 		posNoOscillation = self.transform.position;
 		oscDir = OscillationDirection (currentDir);
 	}
@@ -118,6 +122,7 @@ public class RayBehaviour : MonoBehaviour {
 		//Shouldn't need to be in Update after rotation is stopped, dependent on rotation really
 		//If non-static camera, keep as is
 		camToFocus = earth.GetComponent<PlanetCameraOrientator> ().camToFocus;
+		excitationProbPerFrame = excitationSlider.value;
 
 		//Initialize base variables, only if not launched and activated.
 		if (self.activeSelf && !launched) {

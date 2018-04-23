@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using EZObjectPools;
 
 public class main : MonoBehaviour {
@@ -8,10 +9,16 @@ public class main : MonoBehaviour {
 	public GameObject earth;
 	public GameObject sun;
 	public GameObject SolarRay;
+	public GameObject player;
+	public GameObject canv;
+	public GameObject camera;
+
 	public bool stoppedRotation = false;
 	public bool stoppedOrbit = false;
 	public bool zoomFinished = false; //Use this to initialize audio and close-up scene
+	public float timeBetweenRays = 1;
 
+	private bool canvasUp = false;
 	private float time = 0;
 	private bool successPooling;
 	private EZObjectPool objectPool;
@@ -22,7 +29,7 @@ public class main : MonoBehaviour {
 		
 	// Use this for initialization
 	void Awake () {
-		objectPool = EZObjectPool.CreateObjectPool (SolarRay, "SolarRays", 10, false, true, false);
+		objectPool = EZObjectPool.CreateObjectPool (SolarRay, "SolarRays", 50, false, true, false);
 	}
 
 	void Start () {
@@ -56,11 +63,11 @@ public class main : MonoBehaviour {
 	//Run the audio and the photonsinewaves
 	void RunGreenhouseGasScenario () {
 		time += Time.deltaTime;
-		if (time > 0.5f) {
+		if (time > timeBetweenRays) {
 			time = 0f;
 			Vector3 targetPoint = earth.transform.position
-				+ new Vector3(0, Random.value * earth.transform.lossyScale.y * 0.5f, 0);
-			Vector3 initPoint = Vector3.Lerp (sun.transform.position, targetPoint, 0.96f);
+				+ new Vector3(0, Random.value * earth.transform.lossyScale.y * 0.4f, 0);
+			Vector3 initPoint = Vector3.Lerp (sun.transform.position, targetPoint, 0.96f) + Vector3.up*0.5f;
 			successPooling = objectPool.TryGetNextObject (initPoint, rot, out ray);
 			ray.GetComponent<RayBehaviour> ().initDistToEarth = (targetPoint - initPoint).magnitude
 				- earth.transform.lossyScale.x;
@@ -79,7 +86,14 @@ public class main : MonoBehaviour {
 
 	void RestartOrbit () {
 	}
-		
+
+	void setUpCanvas () {
+		canv.SetActive (true);
+		canv.transform.position = Vector3.Lerp (sun.transform.position, earth.transform.position, 0.94f)
+			+ 3f*Vector3.up;
+		canv.transform.RotateAround (sun.transform.position, Vector3.up, 3f);
+	}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -92,10 +106,17 @@ public class main : MonoBehaviour {
 		//Emit some sexy solar rays
 		if (stoppedOrbit && stoppedRotation) {
 			RunGreenhouseGasScenario ();
+			if (!canvasUp){
+				canvasUp = true;
+				setUpCanvas ();
+				Quaternion targetRotation = Quaternion.LookRotation
+					((camera.transform.position - canv.transform.position).normalized);
+				//print (camera.transform.rotation.eulerAngles);
+				//print (targetRotation.eulerAngles);
+				//camera.transform.SetPositionAndRotation (camera.transform.position, targetRotation);
+				//print (camera.transform.rotation.eulerAngles);
 		}
 
 	}
-	//LateUpdate for last changes in scene per frame.
-	void LateUpdate () {
-	}
+}
 }
