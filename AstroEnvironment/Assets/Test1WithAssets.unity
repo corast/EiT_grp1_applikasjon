@@ -287,7 +287,7 @@ Transform:
   m_GameObject: {fileID: 108880670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.84996, y: 3, z: -35.62182}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children:
   - {fileID: 320387659}
   m_Father: {fileID: 0}
@@ -930,6 +930,7 @@ MonoBehaviour:
   sun: {fileID: 679577752}
   atmosphere: {fileID: 696075302}
   excitationSlider: {fileID: 555841786}
+  speedSlider: {fileID: 373063990}
   speed: 0.003
   oscillationSpeed: 20
   amplitude: 0.003
@@ -948,7 +949,7 @@ GameObject:
   - component: {fileID: 373063990}
   - component: {fileID: 373063989}
   m_Layer: 5
-  m_Name: Slider3
+  m_Name: SpeedOfRays
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1028,10 +1029,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 193092665}
   m_HandleRect: {fileID: 2130595255}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: 0.001
+  m_MaxValue: 0.01
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.003
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1711,7 +1712,7 @@ GameObject:
   - component: {fileID: 909142032}
   - component: {fileID: 909142033}
   m_Layer: 5
-  m_Name: Slider2
+  m_Name: RateOfFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1756,10 +1757,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 178823655}
   m_HandleRect: {fileID: 251857636}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_MinValue: 1
+  m_MaxValue: 10
+  m_WholeNumbers: 1
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1865,7 +1866,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Tekst 2
+  m_text: Rays / sec
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -2187,7 +2188,8 @@ MonoBehaviour:
   sun: {fileID: 679577752}
   SolarRay: {fileID: 334576555}
   canv: {fileID: 108880670}
-  camera: {fileID: 807323526}
+  player: {fileID: 807323526}
+  rateOfFireSlider: {fileID: 909142032}
   stoppedRotation: 0
   stoppedOrbit: 0
   zoomFinished: 0
@@ -2485,7 +2487,7 @@ MonoBehaviour:
   lowerSpeedRate: 0.001
   Midpoint: {fileID: 679577752}
   self: {fileID: 1297476464}
-  speed: 5
+  speed: 7
 --- !u!114 &1297476470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3059,7 +3061,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "CO2 ppm \n"
+  m_text: 'CO2 ppm [180-800]
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -3212,7 +3216,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Tekst 1
+  m_text: Speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}

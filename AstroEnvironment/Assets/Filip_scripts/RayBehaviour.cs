@@ -20,6 +20,7 @@ public class RayBehaviour : MonoBehaviour {
 	public GameObject atmosphere;
 
 	public Slider excitationSlider;
+	public Slider speedSlider;
 
 	public float speed = 0.01f;
 	public float oscillationSpeed = 0.1f;
@@ -122,7 +123,9 @@ public class RayBehaviour : MonoBehaviour {
 		//Shouldn't need to be in Update after rotation is stopped, dependent on rotation really
 		//If non-static camera, keep as is
 		camToFocus = earth.GetComponent<PlanetCameraOrientator> ().camToFocus;
-		excitationProbPerFrame = excitationSlider.value;
+		excitationProbPerFrame = excitationSlider.value / 10000f;
+		speed = speedSlider.value;
+		self.GetComponent <TrailRenderer> ().time = 0.003f / speed;
 
 		//Initialize base variables, only if not launched and activated.
 		if (self.activeSelf && !launched) {
