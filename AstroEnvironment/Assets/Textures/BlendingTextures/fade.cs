@@ -5,13 +5,13 @@ using UnityEngine;
 public class fade : MonoBehaviour {
 
     public Material mat;
-    public float fadeTime = 0.5f;
+    public float fadeTime = 0.05f;
     bool fadeFlag = false;
     float val = 0.0f;
 
     public void FadeOn()
     {
-        fadeFlag = true;
+        fadeFlag = !fadeFlag;
     }
 
     public void FadeOff()
