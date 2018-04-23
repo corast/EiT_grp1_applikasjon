@@ -24,7 +24,9 @@ public class StartMenu : MonoBehaviour {
 	}
 
 	public void backScene(){
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+        float fadeTime = GameObject.Find("_GM").GetComponent<Fading>().BeginFade(1);
+        delay(fadeTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
 	}
 
 	public void changeModuleGlobalwarming(){
