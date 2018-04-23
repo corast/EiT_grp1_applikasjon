@@ -38,10 +38,13 @@ public class PlanetCameraOrientator : MonoBehaviour {
 	private Quaternion originalRotation;
 	private Quaternion secondRot;
 	private Quaternion secondWant;
+	private Quaternion secondRotHelp;
 	private Vector3 originalPosition;
 	private Vector3 centreSun;
 	private Vector3 ab;
 	private Vector3 bc;
+	private Vector3 fro;
+	private Vector3 to;
 
 	private float GetAngle (Vector3 line1, Vector3 line2, bool rad = true) {
 		line1.Normalize ();
@@ -84,8 +87,8 @@ public class PlanetCameraOrientator : MonoBehaviour {
 
 	void Start () {
 	}
-		
-	void LateUpdate () {
+				
+	void LateUpdate () {				
 		speedOrbit = self.GetComponent <OrbitAround> ().speed;
 
 		//Where to
@@ -113,7 +116,6 @@ public class PlanetCameraOrientator : MonoBehaviour {
 		if (rotate){
 			rt = totalTime / rotTime;
 			camera.transform.rotation = Quaternion.Slerp (originalRotation, targetRotation, rt);
-			//lerpValueRotation = 0.5f * (1 + Mathf.Sin ((rt + 0.5f * Mathf.PI) * Mathf.PI));
 			if (rt >= 1f) {
 				rotate = false;
 			}
@@ -137,18 +139,31 @@ public class PlanetCameraOrientator : MonoBehaviour {
 			pointCameraFocus.transform.RotateAround (centreSun, Vector3.up, speedOrbit * Time.deltaTime);
 			if (speedOrbit > 0) {
 				camera.transform.LookAt (self.transform.position);
+
 				secondRot = Quaternion.LookRotation ((self.transform.position -
-				player.transform.position).normalized);
+					player.transform.position).normalized);
 				secondWant = Quaternion.LookRotation ((pointCameraFocus.transform.position -
-				player.transform.position).normalized);
+					player.transform.position).normalized);
+
+				fro = camera.transform.rotation*Vector3.forward;
+				to = self.transform.position-player.transform.position;
+				secondRotHelp = Quaternion.FromToRotation (fro, to);
+
 			} else if (freeCamera) {
-				if (at >= 1f) {
-					//player.transform.rotation = secondWant;
+				if (at > 1f) {
+					player.transform.rotation = new Quaternion (0, 0, 0, 0);
+					fro = camera.transform.rotation*Vector3.forward;
+					to = pointCameraFocus.transform.position-player.transform.position;
+					secondRotHelp = Quaternion.FromToRotation (fro, to);
+		
+					player.transform.rotation *= secondRotHelp;
 					freeCamera = false;
-				} else {
-					player.transform.rotation = Quaternion.Slerp (new Quaternion(0,0,0,0), secondWant, at);
+				} else if (at > 0) {
+					camera.transform.rotation = Quaternion.Slerp (secondRot, secondWant, at);
 					at += 0.01f;
-					print (at);
+				} else {
+					player.transform.rotation *= secondRotHelp;
+					at += 0.01f;
 				}
 			}
 		if (zt >= 1f && speedOrbit > 0) {

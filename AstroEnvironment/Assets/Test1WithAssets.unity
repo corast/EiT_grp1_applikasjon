@@ -2103,7 +2103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lowerSpeed: 0
-  lowerSpeedRate: 0.01
+  lowerSpeedRate: 0.03
   Midpoint: {fileID: 679577752}
   self: {fileID: 1000204057}
   speed: 5
@@ -2119,7 +2119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lowerSpeed: 0
-  lowerSpeedRate: 0.04
+  lowerSpeedRate: 0.12
   ObjectCoordinates: {fileID: 1000204057}
   speed: 20
 --- !u!114 &1000204064
@@ -2186,7 +2186,6 @@ MonoBehaviour:
   earth: {fileID: 1000204057}
   sun: {fileID: 679577752}
   SolarRay: {fileID: 334576555}
-  player: {fileID: 0}
   canv: {fileID: 108880670}
   camera: {fileID: 807323526}
   stoppedRotation: 0
@@ -2617,7 +2616,6 @@ GameObject:
   - component: {fileID: 1349821157}
   - component: {fileID: 1349821161}
   - component: {fileID: 1349821163}
-  - component: {fileID: 1349821162}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -2709,18 +2707,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
---- !u!114 &1349821162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1349821156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15596646b4ce1462dab69976afdeb9ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  self: {fileID: 108880670}
 --- !u!96 &1349821163
 TrailRenderer:
   serializedVersion: 2

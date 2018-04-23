@@ -9,7 +9,6 @@ public class main : MonoBehaviour {
 	public GameObject earth;
 	public GameObject sun;
 	public GameObject SolarRay;
-	public GameObject player;
 	public GameObject canv;
 	public GameObject camera;
 
@@ -24,7 +23,6 @@ public class main : MonoBehaviour {
 	private EZObjectPool objectPool;
 	private Quaternion rot = new Quaternion (0, 0, 0, 0);
 	private GameObject ray;
-	//private bool eventSignal = false; //Use this to stop rotation and orbits. (Is this necessary?)
 
 		
 	// Use this for initialization
@@ -91,7 +89,9 @@ public class main : MonoBehaviour {
 		canv.SetActive (true);
 		canv.transform.position = Vector3.Lerp (sun.transform.position, earth.transform.position, 0.94f)
 			+ 3f*Vector3.up;
-		canv.transform.RotateAround (sun.transform.position, Vector3.up, 3f);
+		canv.transform.RotateAround (sun.transform.position, Vector3.up, 2.5f);
+		canv.transform.rotation = Quaternion.Inverse (Quaternion.LookRotation ((camera.transform.position -
+			canv.transform.position).normalized));
 	}
 
 	// Update is called once per frame
@@ -109,14 +109,7 @@ public class main : MonoBehaviour {
 			if (!canvasUp){
 				canvasUp = true;
 				setUpCanvas ();
-				Quaternion targetRotation = Quaternion.LookRotation
-					((camera.transform.position - canv.transform.position).normalized);
-				//print (camera.transform.rotation.eulerAngles);
-				//print (targetRotation.eulerAngles);
-				//camera.transform.SetPositionAndRotation (camera.transform.position, targetRotation);
-				//print (camera.transform.rotation.eulerAngles);
 		}
-
 	}
 }
 }
