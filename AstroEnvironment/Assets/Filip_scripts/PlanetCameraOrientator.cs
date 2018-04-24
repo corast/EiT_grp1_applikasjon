@@ -12,7 +12,6 @@ public class PlanetCameraOrientator : MonoBehaviour {
 	public GameObject player;
 	public GameObject camera;
 	public GameObject self;
-	public GameObject slider;
 
 	public bool triggered = false;
 	public float zoomTime = 12f;
@@ -89,7 +88,7 @@ public class PlanetCameraOrientator : MonoBehaviour {
 	}
 				
 	void LateUpdate () {				
-		speedOrbit = self.GetComponent <OrbitAround> ().speed;
+		speedOrbit = self.GetComponent <OrbitAroundFilip> ().speed;
 
 		//Where to
 		if (triggered && !needReset) {

@@ -5,15 +5,6 @@ using UnityEngine.UI;
 
 public class RayBehaviour : MonoBehaviour {
 
-	//To do:
-	//Temporarily turn off trail renderer 		- check
-	//Better way to oscillate 					- check
-	//Lerp should be replaced, no t! 			- check
-	//Excitation 								- check, possible modification: Only in normal plane for better view +
-	//													 + waiting time before it rechanges course (or other criteria)
-	//Color change of trail renderer			- check
-	//Slider to determine density of atmosphere, aka excitationProbPerFrame - Sondre
-
 	public GameObject earth;
 	public GameObject self;
 	public GameObject sun;
@@ -22,9 +13,9 @@ public class RayBehaviour : MonoBehaviour {
 	public Slider excitationSlider;
 	public Slider speedSlider;
 
-	public float speed = 0.01f;
-	public float oscillationSpeed = 0.1f;
-	public float amplitude = 0.5f;
+	public float speed = 0.003f;
+	public float oscillationSpeed = 20f;
+	public float amplitude = 0.001f;
 	public float initDistToEarth;
 
 	public Vector3 currentDir;
@@ -100,7 +91,7 @@ public class RayBehaviour : MonoBehaviour {
 		initDistToEarth = (earth.transform.position - self.transform.position).magnitude - radiusEarth;
 		//Enable trail and white (light) color
 		self.GetComponent<TrailRenderer> ().enabled = true; 
-		self.GetComponent<TrailRenderer> ().startColor = new Color (255f, 255f, 255f, 1f);
+		self.GetComponent<TrailRenderer> ().material = whiteTrail;
 	}
 
 	//Resets the particle and clears trail
