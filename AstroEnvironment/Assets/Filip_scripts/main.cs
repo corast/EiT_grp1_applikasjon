@@ -11,6 +11,8 @@ public class main : MonoBehaviour {
 	public GameObject SolarRay;
 	public GameObject canv;
 	public GameObject player;
+	public GameObject menuCanvas;
+	public GameObject camPos;
 
 	public Slider rateOfFireSlider;
 
@@ -38,6 +40,8 @@ public class main : MonoBehaviour {
 	//Trigger everything
 	public void StartEvent () {
 		ZoomToEarth ();
+		menuCanvas.SetActive (false);
+		camPos.SetActive (false);
 	}
 
 	//Sets camera position and moves the camera towards its ideal position for ghg-scene

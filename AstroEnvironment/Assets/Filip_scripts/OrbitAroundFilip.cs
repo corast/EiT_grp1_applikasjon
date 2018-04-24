@@ -5,10 +5,10 @@ using UnityEngine;
 public class OrbitAroundFilip : MonoBehaviour
 {
 	public bool lowerSpeed = false;
-	public float lowerSpeedRate = 0.001f;
+	public float lowerSpeedRate = 0.05f;
     public GameObject Midpoint;
 	public GameObject self;
-    public float speed = 10f;
+    public float speed = 5f;
 
     // Update is called once per frame
     void Update()

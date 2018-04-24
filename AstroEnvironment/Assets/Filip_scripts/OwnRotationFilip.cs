@@ -5,7 +5,7 @@ using UnityEngine;
 public class OwnRotationFilip : MonoBehaviour
 {
 	public bool lowerSpeed = false;
-	public float lowerSpeedRate = 0.001f;
+	public float lowerSpeedRate = 0.1f;
     public GameObject ObjectCoordinates;
     public float speed = 10f;
 

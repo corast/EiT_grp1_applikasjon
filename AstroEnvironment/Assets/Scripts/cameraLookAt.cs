@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class cameraLookAt : MonoBehaviour {
 
-	public Camera cameraToLookAt;
+	public GameObject cameraToLookAt;
+	public GameObject sun;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -12,9 +14,9 @@ public class cameraLookAt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 v3 = cameraToLookAt.transform.position - transform.position;
-		v3.x = v3.z = 0.0f;
-		transform.LookAt( cameraToLookAt.transform.position);
-		transform.Rotate(0,180,0);
+		transform.position = 10f*(cameraToLookAt.transform.position - sun.transform.position).normalized
+			+ cameraToLookAt.transform.position;
+		transform.LookAt(transform.position + transform.position - cameraToLookAt.transform.position);
+		//transform.Rotate(180,180,0);
 	}
 }
