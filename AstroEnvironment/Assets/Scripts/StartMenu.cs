@@ -30,6 +30,9 @@ public class StartMenu : MonoBehaviour {
 	}
 
 	public void changeModuleGlobalwarming(){
-
-	}
+        float fadeTime = GameObject.Find("_GM").GetComponent<Fading>().BeginFade(1);
+        delay(fadeTime);
+        //Change scene by one.
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+    }
 }
