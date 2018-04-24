@@ -17,6 +17,3 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GreengouseGasScene.unity
     guid: 1112575d47ec4a445ad102496e275f7b
-  - enabled: 0
-    path: Assets/Scenes/TestWithUI.unity
-    guid: 95c6215d9395f654eb7d44806731e784
