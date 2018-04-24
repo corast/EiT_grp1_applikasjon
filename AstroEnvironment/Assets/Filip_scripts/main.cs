@@ -92,8 +92,8 @@ public class main : MonoBehaviour {
 		canv.transform.position = Vector3.Lerp (sun.transform.position, earth.transform.position, 0.94f)
 			+ 4f*Vector3.up;
 		canv.transform.RotateAround (sun.transform.position, Vector3.up, 3f);
-		canv.transform.LookAt (player.transform.position);
-		canv.transform.rotation = Quaternion.Inverse (canv.transform.rotation);
+		canv.transform.LookAt (canv.transform.position + (canv.transform.position - player.transform.position));
+		//canv.transform.rotation = Quaternion.Inverse (canv.transform.rotation);
 		canv.transform.rotation = Quaternion.Euler(canv.transform.rotation.eulerAngles.x,
 			canv.transform.rotation.eulerAngles.y, 0f);
 	}

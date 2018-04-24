@@ -82,7 +82,7 @@ public class PlanetCameraOrientator : MonoBehaviour {
 
 		//Rotate the hardcoded points so they correspond to earths actual position
 		pointTo.transform.RotateAround (centreSun, Vector3.up, angleToIdeal);
-		pointCameraFocus.transform.RotateAround (centreSun, Vector3.up, angleToIdeal);
+		pointCameraFocus.transform.RotateAround (centreSun, Vector3.up, angleToIdeal + 1f);
 	}
 
 	void Start () {

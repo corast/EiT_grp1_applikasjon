@@ -70,11 +70,13 @@ public class RayBehaviour : MonoBehaviour {
 		oscDir = OscillationDirection (currentDir);
 
 		posNoOscillation = self.transform.position;
+		self.GetComponent <TrailRenderer> ().startWidth = self.GetComponent <TrailRenderer> ().startWidth * 0.9f;
+		self.GetComponent <TrailRenderer> ().endWidth = self.GetComponent <TrailRenderer> ().endWidth * 0.9f;
+		self.GetComponent<TrailRenderer> ().Clear ();
 
 		//If it hits the earth for the 1. time, it changes to a heatray (color red) and may excitate
 		if (!isHeatray) {
 			isHeatray = true;
-			self.GetComponent<TrailRenderer> ().Clear ();
 			self.GetComponent<TrailRenderer> ().material = redTrail;
 		}
 	}
@@ -82,6 +84,8 @@ public class RayBehaviour : MonoBehaviour {
 	//Gives a new random path for the particle. To be activated randomly in atmosphere
 	void ExcitationRandomPath () {
 		//currentDir = new Vector3 (Random.value, Random.value, Random.value);
+		self.GetComponent<TrailRenderer> ().Clear ();
+
 		sunToEarth = (sun.transform.position - earth.transform.position).normalized;
 		currentDir = (Random.Range(-1,1)*Vector3.up + Random.Range(-1,1)*sunToEarth).normalized;
 		posNoOscillation = self.transform.position;
@@ -123,7 +127,7 @@ public class RayBehaviour : MonoBehaviour {
 		//Shouldn't need to be in Update after rotation is stopped, dependent on rotation really
 		//If non-static camera, keep as is
 		camToFocus = earth.GetComponent<PlanetCameraOrientator> ().camToFocus;
-		excitationProbPerFrame = excitationSlider.value / 10000f;
+		excitationProbPerFrame = (speed / 0.003f) * excitationSlider.value / 12000f;
 		speed = speedSlider.value;
 		self.GetComponent <TrailRenderer> ().time = 0.003f / speed;
 
