@@ -17,7 +17,7 @@ public class OwnRotationFilip : MonoBehaviour
 
 	void Rotate(bool lowerSpeed)
     {
-        transform.RotateAround(ObjectCoordinates.transform.position, Vector3.back, speed * Time.deltaTime);
+        transform.RotateAround(ObjectCoordinates.transform.position, Vector3.up, speed * Time.deltaTime);
 		if (lowerSpeed && speed > 0) {
 			speed -= lowerSpeedRate;
 		} else if (speed <= 0) {

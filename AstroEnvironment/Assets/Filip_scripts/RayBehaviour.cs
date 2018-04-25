@@ -37,6 +37,8 @@ public class RayBehaviour : MonoBehaviour {
 	private float distToEarth;
 	private float radiusEarth;
 	private float excitationProbPerFrame;
+	private float startWidth;
+	private float endWidth;
 
 	//Custom methods
 
@@ -104,12 +106,17 @@ public class RayBehaviour : MonoBehaviour {
 		self.GetComponent<TrailRenderer> ().enabled = false;
 		self.GetComponent<TrailRenderer> ().material = whiteTrail;
 		self.SetActive (false);
+		self.GetComponent <TrailRenderer> ().startWidth = startWidth;
+		self.GetComponent <TrailRenderer> ().endWidth = endWidth;
+
 	}
 
 	//Start and update methods
 
 	//Deactivate the ray, so all copies in pool are deactivated until called upons
 	void Start () {
+		startWidth = self.GetComponent <TrailRenderer> ().startWidth;
+		endWidth = self.GetComponent <TrailRenderer> ().endWidth;
 		radiusEarth = earth.transform.lossyScale.x * 0.5f;
 		self.SetActive (false);
 	}
